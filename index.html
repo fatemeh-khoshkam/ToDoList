@@ -8,11 +8,11 @@
     <link href="./src/css/main.css" rel="stylesheet" />
   </head>
   <body>
-    <div class="flex bg-gray-100 dark:bg-night-dark">
+    <div class="flex h-screen bg-gray-100 dark:bg-night-dark">
       <aside
         class="h-screen dark:bg-night-dark dark:shadow-lg dark:border-r-2 dark:border-night-lightClr w-64 bg-white fixed lg:sticky top-0 p-6 pt-10 whitespace-nowrap z-20 closed shadow-xl flex flex-col justify-between"
       >
-        <div class="">
+        <div>
           <div class="mb-10 flex items-center justify-between">
             <div
               class="flex gap-1 p-2 bg-indigo-500 text-white dark:text-night-white rounded"
@@ -162,7 +162,7 @@
             <li>
               <a
                 href="#"
-                onclick="modalHandler(true)"
+                id="addNewTask"
                 class="flex dark:hover:bg-night-light items-center rounded px-3 py-2 hover:text-black hover:bg-gray-100 hover:text-indigo-600 transition-all"
               >
                 <svg
@@ -275,374 +275,381 @@
         <main
           class="px-6 py-8 lg:px-8 bg-gray-100 flex flex-col gap-6 dark:bg-night-dark"
         >
-          <div class="relative">
-            <div class="rounded-lg shadow my-8 overflow-x-hidden">
-              <div class="table border-collapse table-auto w-full text-sm">
-                <div class="table-header-group bg-white">
-                  <div class="table-row dark:bg-night-light">
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 p-4 pl-8 pb-3 font-bold text-indigo-400 text-left"
-                    >
-                      Tasks in progress
+          <div id="content" class="block">
+            <div class="relative">
+              <div class="rounded-lg shadow my-8 overflow-x-hidden">
+                <div class="table border-collapse table-auto w-full text-sm">
+                  <div class="table-header-group bg-white">
+                    <div class="table-row dark:bg-night-light">
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 p-4 pl-8 pb-3 font-bold text-indigo-400 text-left"
+                      >
+                        Tasks in progress
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Mo
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Tu
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        We
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Th
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Fr
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Sa
+                      </div>
+                      <div
+                        class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
+                      >
+                        Su
+                      </div>
                     </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Mo
+                  </div>
+                  <div class="table-row-group bg-white dark:bg-night-light">
+                    <div class="table-row">
+                      <div
+                        class="table-cell dark:text-night-silver border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pl-8 text-slate-500 dark:text-slate-400"
+                      >
+                        Reading book
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:text-night-green dark:border-night-lightClr dark:border-b-2 p-4 text-green-700"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:text-night-red dark:border-b-2 p-4 pr-8 text-red-700"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
                     </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Tu
-                    </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      We
-                    </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Th
-                    </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Fr
-                    </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Sa
-                    </div>
-                    <div
-                      class="table-cell border-b dark:text-night-lightBlue dark:border-night-lightClr dark:border-b-2 font-bold p-4 pr-8 pb-3 text-indigo-400 dark:text-slate-200 text-left"
-                    >
-                      Su
+                    <div class="table-row">
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 dark:text-night-silver p-4 pl-8 text-slate-500 dark:text-slate-400"
+                      >
+                        Programming
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd"
+                            class=""
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-6 h-6"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div class="table-row-group bg-white dark:bg-night-light">
-                  <div class="table-row">
-                    <div
-                      class="table-cell dark:text-night-silver border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pl-8 text-slate-500 dark:text-slate-400"
-                    >
-                      Reading book
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:text-night-green dark:border-night-lightClr dark:border-b-2 p-4 text-green-700"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:text-night-red dark:border-b-2 p-4 pr-8 text-red-700"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                  <div class="table-row">
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 dark:text-night-silver p-4 pl-8 text-slate-500 dark:text-slate-400"
-                    >
-                      Programming
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 text-green-700 dark:text-night-green"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                          class=""
-                        />
-                      </svg>
-                    </div>
-                    <div
-                      class="table-cell border-b border-slate-100 dark:border-night-lightClr dark:border-b-2 p-4 pr-8 text-red-700 dark:text-night-red"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="w-6 h-6"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+              </div>
+            </div>
+
+            <div class="flex gap-2 md:flex-nowrap flex-wrap">
+              <div
+                class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
+              >
+                <div>
+                  <span
+                    class="inline-flex items-center dark:bg-night-green dark:text-night-dark text-white justify-center p-2 bg-indigo-500 rounded-md shadow-md"
+                  >
+                    3 tasks
+                  </span>
                 </div>
+                <h3
+                  class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
+                >
+                  Completed ✅
+                </h3>
+                <p
+                  class="text-slate-500 dark:text-night-lightGray mt-2 text-sm"
+                >
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Eaque provident repellendus possimus fuga earum. Odit, ea
+                  voluptates iusto a cum nihil hic excepturi possimus aliquam
+                  iure voluptatum magni enim suscipit?
+                </p>
+              </div>
+              <div
+                class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
+              >
+                <div>
+                  <span
+                    class="inline-flex items-center text-white dark:text-night-dark dark:bg-night-yellow justify-center p-2 bg-indigo-500 rounded-md shadow-md"
+                  >
+                    12 tasks
+                  </span>
+                </div>
+                <h3
+                  class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
+                >
+                  To do 💪
+                </h3>
+                <p
+                  class="text-slate-500 dark:text-night-lightGray mt-2 text-sm"
+                >
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Eaque provident repellendus possimus fuga earum. Odit, ea
+                  voluptates iusto a cum nihil hic excepturi possimus aliquam
+                  iure voluptatum magni enim suscipit?
+                </p>
+              </div>
+              <div
+                class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
+              >
+                <div>
+                  <span
+                    class="inline-flex dark:bg-night-lightBlue dark:text-night-dark items-center text-white justify-center p-2 bg-indigo-500 rounded-md shadow-lg"
+                  >
+                    20 tasks
+                  </span>
+                </div>
+                <h3
+                  class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
+                >
+                  All tasks 📃
+                </h3>
+                <p
+                  class="text-slate-500 dark:text-night-lightGray mt-2 text-sm"
+                >
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Eaque provident repellendus possimus fuga earum. Odit, ea
+                  voluptates iusto a cum nihil hic excepturi possimus aliquam
+                  iure voluptatum magni enim suscipit?
+                </p>
               </div>
             </div>
           </div>
-
-          <div class="flex gap-2 md:flex-nowrap flex-wrap">
-            <div
-              class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
-            >
-              <div>
-                <span
-                  class="inline-flex items-center dark:bg-night-green dark:text-night-dark text-white justify-center p-2 bg-indigo-500 rounded-md shadow-md"
-                >
-                  3 tasks
-                </span>
-              </div>
-              <h3
-                class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
-              >
-                Completed ✅
-              </h3>
-              <p class="text-slate-500 dark:text-night-lightGray mt-2 text-sm">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
-                provident repellendus possimus fuga earum. Odit, ea voluptates
-                iusto a cum nihil hic excepturi possimus aliquam iure voluptatum
-                magni enim suscipit?
-              </p>
-            </div>
-            <div
-              class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
-            >
-              <div>
-                <span
-                  class="inline-flex items-center text-white dark:text-night-dark dark:bg-night-yellow justify-center p-2 bg-indigo-500 rounded-md shadow-md"
-                >
-                  12 tasks
-                </span>
-              </div>
-              <h3
-                class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
-              >
-                To do 💪
-              </h3>
-              <p class="text-slate-500 dark:text-night-lightGray mt-2 text-sm">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
-                provident repellendus possimus fuga earum. Odit, ea voluptates
-                iusto a cum nihil hic excepturi possimus aliquam iure voluptatum
-                magni enim suscipit?
-              </p>
-            </div>
-            <div
-              class="bg-white dark:bg-night-light dark:ring-1 dark:ring-night-lightClr rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-md"
-            >
-              <div>
-                <span
-                  class="inline-flex dark:bg-night-lightBlue dark:text-night-dark items-center text-white justify-center p-2 bg-indigo-500 rounded-md shadow-lg"
-                >
-                  20 tasks
-                </span>
-              </div>
-              <h3
-                class="text-slate-900 dark:text-night-silver mt-5 text-base font-medium tracking-tight"
-              >
-                All tasks 📃
-              </h3>
-              <p class="text-slate-500 dark:text-night-lightGray mt-2 text-sm">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
-                provident repellendus possimus fuga earum. Odit, ea voluptates
-                iusto a cum nihil hic excepturi possimus aliquam iure voluptatum
-                magni enim suscipit?
-              </p>
-            </div>
-          </div>
-
           <div
             class="hidden py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
             id="newTask"
@@ -652,6 +659,7 @@
               class="container mx-auto w-11/12 md:w-2/3 max-w-lg"
             >
               <form
+                id="newTaskForm"
                 class="relative dark:bg-night-dark py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
               >
                 <div class="w-full flex justify-start text-indigo-500 mb-3">
@@ -685,6 +693,7 @@
                   id="title"
                   class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
                   placeholder="title of task"
+                  required
                 />
 
                 <!-- description -->
@@ -717,6 +726,7 @@
                     id="description"
                     class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-full flex items-center pl-16 text-sm border-gray-300 rounded border"
                     placeholder="description"
+                    required
                   ></textarea>
                 </div>
 
@@ -746,6 +756,7 @@
                     datepicker
                     datepicker-buttons
                     datepicker-autohide
+                    required
                     type="text"
                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Select Schedule Date"
@@ -765,9 +776,10 @@
                   ></div>
                   <select
                     id="priority"
+                    required
                     class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option selected>Choose priority of task</option>
+                    <option></option>
                     <option value="Low">Low</option>
                     <option value="Meduim">Meduim</option>
                     <option value="High">High</option>
@@ -777,20 +789,21 @@
                 <!-- buttons -->
                 <div class="flex items-center justify-start w-full">
                   <button
+                    id="submitFormBtn"
                     class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
                   >
                     Submit
                   </button>
                   <button
+                    id="cancelFormBtn"
                     class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
-                    onclick="modalHandler()"
                   >
                     Cancel
                   </button>
                 </div>
                 <button
+                  id="closeFormBtn"
                   class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
-                  onclick="modalHandler()"
                   aria-label="close modal"
                   role="button"
                 >
@@ -814,6 +827,8 @@
               </form>
             </div>
           </div>
+
+          <div class="flex flex-col gap-2 mt-8" id="taskContainer"></div>
         </main>
       </div>
     </div>
