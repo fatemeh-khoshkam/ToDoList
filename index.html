@@ -15,7 +15,7 @@
         <div class="">
           <div class="mb-10 flex items-center justify-between">
             <div
-              class="flex gap-1 p-2 bg-indigo-500 text-white dark:text-night-silver dark:bg-night-light rounded"
+              class="flex gap-1 p-2 bg-indigo-500 text-white dark:text-night-white rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -162,6 +162,7 @@
             <li>
               <a
                 href="#"
+                onclick="modalHandler(true)"
                 class="flex dark:hover:bg-night-light items-center rounded px-3 py-2 hover:text-black hover:bg-gray-100 hover:text-indigo-600 transition-all"
               >
                 <svg
@@ -245,8 +246,8 @@
             <span>My Dashboard</span>
           </h1>
 
-          <form
-            class="flex items-center gap-3 dark:bg-night-light bg-gray-100 rounded py-3 px-4 lg:max-w-md"
+          <div
+            class="flex items-center gap-3 dark:bg-night-light bg-gray-100 rounded py-1 px-4 lg:max-w-md"
           >
             <button class="text-gray-500 dark:text-night-silver">
               <svg
@@ -267,9 +268,9 @@
             <input
               type="text"
               placeholder="Search"
-              class="outline-none bg-transparent outline-none w-full dark:text-night-silver dark:bg-night-light"
+              class="bg-transparent outline-0 focus:outline-none border-0 w-full dark:text-night-silver dark:bg-night-light"
             />
-          </form>
+          </div>
         </header>
         <main
           class="px-6 py-8 lg:px-8 bg-gray-100 flex flex-col gap-6 dark:bg-night-dark"
@@ -641,9 +642,182 @@
               </p>
             </div>
           </div>
+
+          <div
+            class="hidden py-12 bg-gray-700 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0"
+            id="newTask"
+          >
+            <div
+              role="alert"
+              class="container mx-auto w-11/12 md:w-2/3 max-w-lg"
+            >
+              <form
+                class="relative dark:bg-night-dark py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400"
+              >
+                <div class="w-full flex justify-start text-indigo-500 mb-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1"
+                    stroke="currentColor"
+                    width="45"
+                    height="45"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
+                    />
+                  </svg>
+                </div>
+                <h1 class="text-indigo-500 font-lg font-bold mb-4">
+                  Add new task
+                </h1>
+
+                <!-- title -->
+                <label
+                  for="title"
+                  class="dark:text-night-silver text-gray-800 text-sm font-bold"
+                  >Title</label
+                >
+                <input
+                  id="title"
+                  class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                  placeholder="title of task"
+                />
+
+                <!-- description -->
+                <label
+                  for="description"
+                  class="dark:text-night-silver text-gray-800 text-sm font-bold"
+                  >Description</label
+                >
+                <div class="relative h-16 mb-5 mt-2">
+                  <div
+                    class="absolute dark:text-night-silver text-gray-600 flex items-center px-4 h-full border-r"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+                      />
+                    </svg>
+                  </div>
+                  <textarea
+                    id="description"
+                    class="dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 text-gray-600 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-full flex items-center pl-16 text-sm border-gray-300 rounded border"
+                    placeholder="description"
+                  ></textarea>
+                </div>
+
+                <!-- Schedule date -->
+                <label
+                  for="date"
+                  class="dark:text-night-silver text-gray-800 text-sm font-bold"
+                  >Schedule Date</label
+                >
+                <div class="relative mb-5 mt-2">
+                  <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    datepicker
+                    datepicker-buttons
+                    datepicker-autohide
+                    type="text"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Select Schedule Date"
+                    id="date"
+                  />
+                </div>
+
+                <!-- Priority -->
+                <label
+                  for="priority"
+                  class="dark:text-night-silver text-gray-800 text-sm font-bold"
+                  >Priority</label
+                >
+                <div class="relative mb-5 mt-2">
+                  <div
+                    class="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer"
+                  ></div>
+                  <select
+                    id="priority"
+                    class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <option selected>Choose priority of task</option>
+                    <option value="Low">Low</option>
+                    <option value="Meduim">Meduim</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+
+                <!-- buttons -->
+                <div class="flex items-center justify-start w-full">
+                  <button
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                    onclick="modalHandler()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <button
+                  class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                  onclick="modalHandler()"
+                  aria-label="close modal"
+                  role="button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-x"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    stroke-width="2.5"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
         </main>
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
 
     <script src="./src/scripts/script.js"></script>
   </body>
