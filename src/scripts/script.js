@@ -160,7 +160,7 @@ const closeModal = () => {
 
 const priorityLevel = (level) => {
   if (level === "Low") return "green";
-  if (level === "Meduim") return "orange";
+  if (level === "Meduim") return "amber";
   if (level === "High") return "red";
 };
 
@@ -177,35 +177,18 @@ const createTask = () => {
   content.style.display = "none";
   setTimeout(clearFields(formInputs), 1000);
 
-  // const {
-  //   title: title,
-  //   description: description,
-  //   date: date,
-  //   priority: priority,
-  // } = taskObj;
-
-  // taskContainer.insertAdjacentHTML(
-  //   "afterbegin",
-  //   displayTask(title, description, date, priority)
-  // );
-
   return taskObj;
 };
 
 const displayTask = (title, description, date, priority) => {
   let priorityClr = priorityLevel(priority);
 
-  // if (priority === "Low") priorityClr = "green";
-  // if (priority === "Meduim") priorityClr = "orange";
-  // if (priority === "High") priorityClr = "red";
-
-  console.log(priorityClr);
   return `<div
-  class="cursor-pointer w-full border-l-8 border-${priorityClr}-600 bg-white shadow overflow-hidden sm:rounded-md mx-auto"
+  class="cursor-pointer w-full shadow-md border-l-8 dark:shadow-[2px_2px_4px_0px_rgba(0,0,0,0.32)] dark:bg-night-light border-${priorityClr}-600 bg-white overflow-hidden sm:rounded-md mx-auto"
 >
   <div class="px-4 py-5 sm:px-6">
     <div class="flex items-center justify-between">
-      <h3 class="text-lg leading-6 font-medium text-gray-900">
+      <h3 class="text-lg leading-6 font-medium text-gray-900  dark:text-night-silver">
         ${title}
       </h3>
       <p class="text-sm font-medium text-gray-500">
@@ -231,7 +214,6 @@ const displayTask = (title, description, date, priority) => {
 };
 
 submitFormBtn.addEventListener("click", (event) => {
-  //const task = createTask();
   const {
     title: title,
     description: description,
@@ -240,7 +222,7 @@ submitFormBtn.addEventListener("click", (event) => {
   } = createTask();
 
   taskContainer.insertAdjacentHTML(
-    "afterbegin",
+    "beforeend",
     displayTask(title, description, date, priority)
   );
 });

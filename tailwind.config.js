@@ -1,9 +1,16 @@
 /** @type {import('tailwindcss').Config} */
+
+const colorClasses = ["green", "red", "amber"];
+
 module.exports = {
   content: [
     "./*.html",
     "./src/scripts/*.js",
     "./node_modules/flowbite/**/*.js",
+  ],
+  safelist: [
+    ...colorClasses.map((color) => `border-${color}-600`),
+    ...colorClasses.map((color) => `text-${color}-600`),
   ],
   theme: {
     extend: {
