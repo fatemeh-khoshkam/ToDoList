@@ -1,16 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 
 const colorClasses = ["green", "red", "amber"];
-
 module.exports = {
-  content: [
-    "./*.html",
-    "./src/scripts/*.js",
-    "./node_modules/flowbite/**/*.js",
-  ],
+  content: ["./*.html", "./src/scripts/*.js"],
   safelist: [
     ...colorClasses.map((color) => `border-${color}-600`),
     ...colorClasses.map((color) => `text-${color}-600`),
+    ...colorClasses.map((color) => `bg-${color}-100`),
+    ...colorClasses.map((color) => `text-${color}-900`),
   ],
   theme: {
     extend: {
@@ -31,5 +28,4 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [require("flowbite/plugin")],
 };
