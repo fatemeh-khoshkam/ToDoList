@@ -112,7 +112,7 @@ const addNewTask = document.querySelector("#addNewTask");
 const taskContainer = document.querySelector("#taskContainer");
 let formInputs = formTask.querySelectorAll("input, select, textarea");
 const messagesContainer = document.querySelector("#messagesContainer");
-const alertMessagessage = document.querySelector("#alertModal");
+const alertMessage = document.querySelector("#alertModal");
 const allTasks = document.querySelector(".allTasks");
 const dashboard = document.querySelector(".dashboard");
 const cancelAlertBtn = document.querySelector("#cancelAlertBtn");
@@ -222,19 +222,20 @@ const displayTask = (title, description, date, priority) => {
 >
   <div class="px-4 py-5 sm:px-6">
     <div class="flex items-center justify-between">
-      <h3 class="text-lg leading-6 font-medium text-gray-900  dark:text-night-silver">
+      <h3 id='title' class="info text-lg leading-6 font-medium text-gray-900  dark:text-night-silver">
         ${title}
       </h3>
-      <p class="text-sm font-medium text-gray-500">
-        Priority: <span class="text-${priorityClr}-600">${priority}</span>
+      <p id="priority" class="text-sm font-medium text-gray-500">
+        Priority: <span class="info text-${priorityClr}-600" id='priority'>${priority}</span>
       </p>
     </div>
     <div class="mt-2 flex items-end justify-between">
       <div>
-        <span class="text-xs text-gray-500 text-semibold">
-          Schelued: ${date}</span
-        >
-        <p class="mt-1 max-w-2xl text-md text-gray-600">
+      <p  class="text-xs text-gray-500 text-semibold">Schelued: 
+        <span id="date" class="info">
+          ${date}</span
+        ></p>
+        <p id="description" class="info mt-1 max-w-2xl text-md text-gray-600">
           ${description}
         </p>
       </div>
@@ -327,6 +328,12 @@ taskContainer.addEventListener("click", (event) => {
     modalHandler(true, alertMessage);
   }
 
+  if (event.target.id === "editBtn") {
+    console.log("edit btn clicked");
+    modalHandler(true, newTaskModal);
+    updateTask(card);
+  }
+
   deleteAlertBtn.addEventListener("click", () => {
     modalHandler(false, alertMessage);
     card.remove();
@@ -335,3 +342,23 @@ taskContainer.addEventListener("click", (event) => {
     modalHandler(false, alertMessage);
   });
 });
+
+// 1. Get values from card of task and store them in object
+// 2. Based on the data it gets from the object, it enters them into the form for editing
+// 3. Remove old card with old values
+const updateTask = (taskCard) => {
+  const cardObj = {};
+
+  const card = taskCard.querySelectorAll(".info");
+  card.forEach((el) => {
+    cardObj[el.id] = el.textContent.trim();
+  });
+
+  Object.entries(cardObj).forEach(([key, value]) => {
+    const input = document.querySelector(`#newTaskForm #${key}`);
+    if (input) {
+      input.value = value;
+    }
+  });
+  taskCard.remove();
+};
