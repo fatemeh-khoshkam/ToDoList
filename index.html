@@ -162,8 +162,7 @@
             <li>
               <a
                 href="#"
-                id="addNewTask"
-                class="flex dark:hover:bg-night-light items-center rounded px-3 py-2 hover:text-black hover:bg-gray-100 hover:text-indigo-600 transition-all"
+                class="addNewTask flex dark:hover:bg-night-light items-center rounded px-3 py-2 hover:text-black hover:bg-gray-100 hover:text-indigo-600 transition-all"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -789,21 +788,18 @@
                 <!-- buttons -->
                 <div class="flex items-center justify-start w-full">
                   <button
-                    id="submitFormBtn"
-                    class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
+                    class="submitFormBtn primaryBtn cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-8 py-2 text-sm"
                   >
                     Submit
                   </button>
                   <button
-                    id="cancelFormBtn"
-                    class="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                    class="closeBtn secondaryBtn cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 ml-3 bg-gray-100 transition duration-150 text-gray-600 ease-in-out hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
                   >
                     Cancel
                   </button>
                 </div>
                 <button
-                  id="closeFormBtn"
-                  class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                  class="closeBtn secondaryBtn cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
                   aria-label="close modal"
                   role="button"
                 >
@@ -829,7 +825,13 @@
           </div>
 
           <!-- Content of New Task Cards -->
-          <div id="taskContainer" class="flex flex-col gap-2 mt-8"></div>
+          <div id="taskContainer" class="flex flex-col gap-2 mt-8">
+            <button
+              class="addNewTask rounded-md shadow-lg bg-indigo-500 hover:bg-indigo-700 transition text-white dark:text-night-white rounded py-2"
+            >
+              Add New Task
+            </button>
+          </div>
 
           <!-- Content of Notification Messages -->
           <div
@@ -840,7 +842,7 @@
           <!-- Delete Alert -->
           <div
             id="alertModal"
-            class="flex flex-col bg-gray-600/50 absolute top-0 right-0 bottom-0 left-0 transition duration-150 ease-in-out z-10"
+            class="hidden flex flex-col bg-gray-600/50 absolute top-0 right-0 bottom-0 left-0 transition duration-150 ease-in-out z-10"
           >
             <div
               class="flex flex-col dark:bg-night-light transition duration-150 ease-in-out z-10 max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white"
@@ -870,14 +872,12 @@
               <!-- Alert buttons -->
               <div class="p-3 mt-2 text-center space-x-4 md:block">
                 <button
-                  id="cancelAlertBtn"
-                  class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+                  class="secondaryBtn mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
                 >
                   Cancel
                 </button>
                 <button
-                  id="deleteAlertBtn"
-                  class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600"
+                  class="primaryBtn mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600"
                 >
                   Delete
                 </button>
@@ -888,6 +888,6 @@
       </div>
     </div>
 
-    <script src="./src/scripts/script.js"></script>
+    <script type="module" src="./src/scripts/script.js"></script>
   </body>
 </html>

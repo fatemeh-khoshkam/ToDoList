@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "It is a simple todo list App",
   "main": "./src/scripts/script.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "npx tailwindcss -i ./src/css/tailwind.css -o ./src/css/output.css --watch"
