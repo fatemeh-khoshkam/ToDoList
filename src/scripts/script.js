@@ -318,23 +318,21 @@ const displayTask = (title, description, date, priority, dataID) => {
 // Showing task form and closing side menu
 addNewTask.forEach((el) => {
   el.addEventListener("click", () => {
+    clearFields(formInputs);
     actionState.value = "create";
     aside.classList.add("closed");
     formTaskModal.show();
-    //modalHandler(true, newTaskModal);
   });
 });
 
 // Create a new Task and add it to the DOM
 submitFormBtn.addEventListener("click", (event) => {
   event.preventDefault();
-
   if (actionState.value === "create") {
     const task = getFormTask();
     if (task === null || task === "") return;
     taskCards.push(task);
   }
-
   formTaskModal.hide();
   renderTasks();
 });
@@ -445,7 +443,7 @@ const renderTasks = () => {
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
 
-  console.log("taskCards after reRender : ", taskCards);
+  //console.log("taskCards after reRender : ", taskCards);
 
   taskCards.forEach((task, i) => {
     const { title, description, date, priority } = task;
@@ -482,6 +480,7 @@ const renderTasks = () => {
     btn.addEventListener("click", (event) => {
       actionState.value = "edit";
       const cardID = event.target.dataset.id;
+      if (!taskCards[cardID]) return;
       Object.entries(taskCards[cardID]).forEach(([key, value]) => {
         const input = document.querySelector(`#${key}`);
         if (input) {
