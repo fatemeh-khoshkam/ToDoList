@@ -36,6 +36,7 @@ class Modal {
     const secondaryBtn = this.dom.querySelector(".secondaryBtn");
 
     primaryBtn.addEventListener("click", () => {
+      console.log("clicked from init");
       this.onSuccess();
       this.hide();
     });

@@ -141,9 +141,10 @@ const dashboard = document.querySelector(".dashboard");
 const newTaskModal = document.querySelector("#newTask");
 const alertMessage = document.querySelector("#alertModal");
 const alertModal = new Modal(alertMessage);
+const actionState = document.querySelector(".action");
+
 alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
-formTaskModal.init();
 
 const taskCards = [
   {
@@ -168,6 +169,7 @@ const taskCards = [
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
+  actionState.value = "";
   // Initialize Alert modal with false state
   //modalHandler(false, alertMessage);
   renderTasks();
@@ -248,6 +250,7 @@ const priorityLevel = (level) => {
 // 1. Get the value of each field input in the form and store them in an object
 // 2. Show special Error message if inputs are not filled
 // 3. return Object which has 4 property based on user filled on task form
+
 const getFormTask = () => {
   const fields = ["title", "description", "date", "priority"];
   const taskObj = {};
@@ -312,27 +315,32 @@ const displayTask = (title, description, date, priority, dataID) => {
 </div>`;
 };
 
+// Showing task form and closing side menu
+addNewTask.forEach((el) => {
+  el.addEventListener("click", () => {
+    actionState.value = "create";
+    aside.classList.add("closed");
+    formTaskModal.show();
+    //modalHandler(true, newTaskModal);
+  });
+});
+
 // Create a new Task and add it to the DOM
 submitFormBtn.addEventListener("click", (event) => {
   event.preventDefault();
-  const task = getFormTask();
 
-  if (task === null || task === "") return;
-  taskCards.push(task);
+  if (actionState.value === "create") {
+    const task = getFormTask();
+    if (task === null || task === "") return;
+    taskCards.push(task);
+  }
+
+  formTaskModal.hide();
   renderTasks();
 });
 
 closeBtns.forEach((btn) => {
   btn.addEventListener("click", closeModal);
-});
-
-// Showing task form and closing side menu
-addNewTask.forEach((el) => {
-  el.addEventListener("click", () => {
-    aside.classList.add("closed");
-    formTaskModal.show();
-    //modalHandler(true, newTaskModal);
-  });
 });
 
 // Showing tasks container and hiding dashboard
@@ -470,31 +478,21 @@ const renderTasks = () => {
     });
   });
   document.querySelectorAll(".editBtn").forEach((btn) => {
+    formTaskModal.init();
     btn.addEventListener("click", (event) => {
-      const cardOfTask = event.target.closest(".card");
-      //getValuesOfTask(cardOfTask);
-
+      actionState.value = "edit";
       const cardID = event.target.dataset.id;
-      console.log(taskCards[cardID]);
       Object.entries(taskCards[cardID]).forEach(([key, value]) => {
         const input = document.querySelector(`#${key}`);
         if (input) {
           input.value = value;
         }
       });
-      formTaskModal.show(() => {
-        const updatedValuesOfTaskCard = getFormTask();
-        console.log(updatedValuesOfTaskCard);
-        taskCards.splice(cardID, 1, updatedValuesOfTaskCard);
-        //renderTasks();
-      });
 
-      // submitFormBtn.addEventListener("click", () => {
-      //   const updatedValuesOfTaskCard = getFormTask();
-      //   console.log(updatedValuesOfTaskCard);
-      //   taskCards.splice(cardID, 1, updatedValuesOfTaskCard);
-      //   renderTasks();
-      // });
+      formTaskModal.show(() => {
+        taskCards[cardID] = getFormTask();
+        renderTasks();
+      });
     });
   });
 };
