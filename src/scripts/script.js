@@ -278,10 +278,13 @@ const displayTask = (title, description, date, priority, dataID) => {
           <span class="peer-checked:line-through select-none info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver" >
           ${title}
           </span>
+          <span class="peer-checked:inline-flex hidden ml-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
       </label> 
+
       <p  class="text-sm font-medium text-gray-500">
         Priority: <span class="info text-${priorityClr}-600" >${priority}</span>
       </p>
+      
     </div>
     <div class="mt-2 flex items-end justify-between">
       <div>
