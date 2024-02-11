@@ -256,9 +256,7 @@ const getFormTask = () => {
     const value = document.querySelector(`.${field}`).value.trim();
     console.log(value);
     if (!value) {
-      //displayMessage(`${field} is required.`, "red");
       throw new Error(`${field}`);
-      return null;
     }
     taskObj[field] = value;
   }
@@ -275,23 +273,23 @@ const displayTask = (title, description, date, priority, dataID) => {
 >
   <div class="px-4 py-5 sm:px-6">
     <div class="flex items-center justify-between">
-      <div class="flex items-center cursor-pointer">
-          <input for="title" type="checkbox" value="${title}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label id="title" class="info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver">
+      <label class="flex items-center cursor-pointer ">
+          <input type="checkbox" class="peer w-5 h-5 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded-lg border border-slate-300">
+          <span class="peer-checked:line-through select-none info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver" >
           ${title}
-          </label>
-      </div>
-      <p id="priority" class="text-sm font-medium text-gray-500">
-        Priority: <span class="info text-${priorityClr}-600" id='priority'>${priority}</span>
+          </span>
+      </label> 
+      <p  class="text-sm font-medium text-gray-500">
+        Priority: <span class="info text-${priorityClr}-600" >${priority}</span>
       </p>
     </div>
     <div class="mt-2 flex items-end justify-between">
       <div>
       <p  class="text-xs text-gray-500 text-semibold">Schelued: 
-        <span id="date" class="info">
+        <span  class="info">
           ${date}</span
         ></p>
-        <p id="description" class="info mt-1 max-w-2xl text-md text-gray-600">
+        <p  class="info mt-1 max-w-2xl text-md text-gray-600">
           ${description}
         </p>
       </div>
@@ -314,7 +312,6 @@ addNewTask.forEach((el) => {
     formTaskModal.show(() => {
       try {
         const task = getFormTask();
-        //if (task === null || task === "") throw new Error();
         taskCards.push(task);
         renderTasks();
       } catch (field) {
