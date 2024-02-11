@@ -169,8 +169,6 @@ const taskCards = [
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
-  // Initialize Alert modal with false state
-  //modalHandler(false, alertMessage);
   renderTasks();
   taskContainer.style.display = "none";
 });
@@ -258,21 +256,14 @@ const getFormTask = () => {
     const value = document.querySelector(`.${field}`).value.trim();
     console.log(value);
     if (!value) {
-      displayMessage(`${field} is required.`, "red");
+      //displayMessage(`${field} is required.`, "red");
+      throw new Error(`${field}`);
       return null;
     }
     taskObj[field] = value;
   }
   console.log(taskObj);
   return taskObj;
-};
-
-// Closing Task Form by hiding it and showing Dashboard Container
-const closeTaskForm = () => {
-  formTaskModal.hide();
-  //fadeOut(newTaskModal);
-  setTimeout(clearFields(formInputs), 1000);
-  dashboardContainer.style.display = "none";
 };
 
 // Return TASK Card base on : title, description, date, priority
@@ -321,33 +312,18 @@ addNewTask.forEach((el) => {
     actionState.value = "create";
     aside.classList.add("closed");
     formTaskModal.show(() => {
-      const task = getFormTask();
-      console.log(task);
-      if (task === null || task === "") return;
-      taskCards.push(task);
-      renderTasks();
+      try {
+        const task = getFormTask();
+        //if (task === null || task === "") throw new Error();
+        taskCards.push(task);
+        renderTasks();
+      } catch (field) {
+        displayMessage(`${field} is required.`, "red");
+        throw field;
+      }
     });
   });
 });
-
-// Create a new Task and add it to the DOM
-// submitFormBtn.addEventListener("click", (event) => {
-//   event.preventDefault();
-//   // if (actionState.value === "create") {
-//   //   const task = getFormTask();
-//   //   console.log(task);
-//   //   if (task === null || task === "") return;
-//   //   taskCards.push(task);
-//   // }
-//   formTaskModal.show(() => {
-//     const task = getFormTask();
-//     console.log(task);
-//     if (task === null || task === "") return;
-//     taskCards.push(task);
-//   });
-//   //formTaskModal.hide();
-//   renderTasks();
-// });
 
 closeBtns.forEach((btn) => {
   btn.addEventListener("click", closeModal);
@@ -385,77 +361,17 @@ const displayMessage = (txt, color) => {
 
   setTimeout(function () {
     const messageBoxes = document.querySelectorAll(".messageBox");
-    const lastMessageBox = messageBoxes[messageBoxes.length - 1];
+    const lastMessageBox = messageBoxes[0];
     if (lastMessageBox) {
       lastMessageBox.remove();
     }
   }, 3000);
 };
 
-// 1. Add event listener to tasks container
-// 2. Determine which task originated the event
-// 3. If user select delete, the task deleted
-// 4. If user select edit, the task edited
-// const taskBtnsHandler = (event) => {
-//   let card = event.target.closest(".card");
-
-//   if (!card) return;
-
-//   // const cardDeleteBtn = card.querySelector(".deleteBtn");
-//   // const cardEditBtn = card.querySelector(".editBtn");
-
-//   // if (cardDeleteBtn) {
-//   //   modalHandler(true, alertMessage);
-//   // }
-
-//   // deleteAlertBtn.addEventListener("click", () => {
-//   //   deleteAlertHandler(card);
-//   // });
-//   // cancelAlertBtn.addEventListener("click", () => {
-//   //   modalHandler(false, alertMessage);
-//   // });
-// };
-
-// const deleteAlertHandler = (card) => {
-//   modalHandler(false, alertMessage);
-//   const cardID = card.dataset.id;
-
-//   taskCards.splice(cardID, 1);
-//   //delete taskCards[cardID];
-//   renderTasks();
-// };
-
-// taskContainer.addEventListener("click", (event) => {
-//   taskBtnsHandler(event);
-// });
-
-// 1. Get values from card of task and store them in object
-// 2. Based on the data it gets from the object, it enters them into the form for editing
-// 3. Remove old card with old values
-const getValuesOfTask = (taskCard) => {
-  const cardObj = {};
-
-  const card = taskCard.querySelectorAll(".info");
-  card.forEach((el) => {
-    cardObj[el.id] = el.textContent.trim();
-  });
-
-  Object.entries(cardObj).forEach(([key, value]) => {
-    const input = document.querySelector(`#${key}`);
-    if (input) {
-      input.value = value;
-    }
-  });
-  //taskCard.remove();
-  return cardObj;
-};
-
 const renderTasks = () => {
   // Clear tasks before rendering new ones
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
-
-  //console.log("taskCards after reRender : ", taskCards);
 
   taskCards.forEach((task, i) => {
     const { title, description, date, priority } = task;

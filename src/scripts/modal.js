@@ -37,8 +37,10 @@ class Modal {
 
     primaryBtn.addEventListener("click", (event) => {
       event.preventDefault();
-      this.onSuccess();
-      this.hide();
+      try {
+        this.onSuccess();
+        this.hide();
+      } catch (e) {}
     });
 
     secondaryBtn.addEventListener("click", () => {
