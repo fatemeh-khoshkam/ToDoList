@@ -139,13 +139,12 @@ const messagesContainer = document.querySelector("#messagesContainer");
 const allTasks = document.querySelector(".allTasks");
 const dashboard = document.querySelector(".dashboard");
 const newTaskModal = document.querySelector("#newTask");
+const actionState = document.querySelector(".action");
 const alertMessage = document.querySelector("#alertModal");
 const alertModal = new Modal(alertMessage);
-const actionState = document.querySelector(".action");
-
 alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
-
+formTaskModal.init();
 const taskCards = [
   {
     title: "title for task 1",
@@ -256,16 +255,15 @@ const getFormTask = () => {
   const taskObj = {};
 
   for (let field of fields) {
-    const value = document.getElementById(field).value.trim();
+    const value = document.querySelector(`.${field}`).value.trim();
+    console.log(value);
     if (!value) {
       displayMessage(`${field} is required.`, "red");
       return null;
     }
     taskObj[field] = value;
   }
-
-  //console.log(taskObj);
-  //closeTaskForm();
+  console.log(taskObj);
   return taskObj;
 };
 
@@ -317,25 +315,39 @@ const displayTask = (title, description, date, priority, dataID) => {
 
 // Showing task form and closing side menu
 addNewTask.forEach((el) => {
-  el.addEventListener("click", () => {
+  el.addEventListener("click", (event) => {
+    event.preventDefault();
     clearFields(formInputs);
     actionState.value = "create";
     aside.classList.add("closed");
-    formTaskModal.show();
+    formTaskModal.show(() => {
+      const task = getFormTask();
+      console.log(task);
+      if (task === null || task === "") return;
+      taskCards.push(task);
+      renderTasks();
+    });
   });
 });
 
 // Create a new Task and add it to the DOM
-submitFormBtn.addEventListener("click", (event) => {
-  event.preventDefault();
-  if (actionState.value === "create") {
-    const task = getFormTask();
-    if (task === null || task === "") return;
-    taskCards.push(task);
-  }
-  formTaskModal.hide();
-  renderTasks();
-});
+// submitFormBtn.addEventListener("click", (event) => {
+//   event.preventDefault();
+//   // if (actionState.value === "create") {
+//   //   const task = getFormTask();
+//   //   console.log(task);
+//   //   if (task === null || task === "") return;
+//   //   taskCards.push(task);
+//   // }
+//   formTaskModal.show(() => {
+//     const task = getFormTask();
+//     console.log(task);
+//     if (task === null || task === "") return;
+//     taskCards.push(task);
+//   });
+//   //formTaskModal.hide();
+//   renderTasks();
+// });
 
 closeBtns.forEach((btn) => {
   btn.addEventListener("click", closeModal);
@@ -476,13 +488,12 @@ const renderTasks = () => {
     });
   });
   document.querySelectorAll(".editBtn").forEach((btn) => {
-    formTaskModal.init();
     btn.addEventListener("click", (event) => {
       actionState.value = "edit";
       const cardID = event.target.dataset.id;
       if (!taskCards[cardID]) return;
       Object.entries(taskCards[cardID]).forEach(([key, value]) => {
-        const input = document.querySelector(`#${key}`);
+        const input = document.querySelector(`.${key}`);
         if (input) {
           input.value = value;
         }

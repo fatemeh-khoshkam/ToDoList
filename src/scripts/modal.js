@@ -35,7 +35,8 @@ class Modal {
     const primaryBtn = this.dom.querySelector(".primaryBtn");
     const secondaryBtn = this.dom.querySelector(".secondaryBtn");
 
-    primaryBtn.addEventListener("click", () => {
+    primaryBtn.addEventListener("click", (event) => {
+      event.preventDefault();
       this.onSuccess();
       this.hide();
     });
