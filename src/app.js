@@ -1,4 +1,4 @@
-import Modal from "./modal.js";
+import Modal from "./modules/Modal.js";
 
 /// Toggle Menu
 const btnOpenMenu = document.querySelector(".btn-open-menu");
@@ -194,7 +194,7 @@ const actionBtn = (name, color, d, dataID) => {
       d="${d}"
     />
   </svg>
-  
+
   ${name}</a
   >`;
 };
@@ -279,7 +279,7 @@ const displayTask = (title, description, date, priority, dataID) => {
           ${title}
           </span>
           <span class="peer-checked:inline-flex hidden ml-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
-      </label> 
+      </label>
 
       <p  class="text-sm font-medium text-gray-500">
         Priority: <span class="info text-${priorityClr}-600" >${priority}</span>
@@ -288,7 +288,7 @@ const displayTask = (title, description, date, priority, dataID) => {
     </div>
     <div class="mt-2 flex items-end justify-between">
       <div>
-      <p  class="text-xs text-gray-500 text-semibold">Schelued: 
+      <p  class="text-xs text-gray-500 text-semibold">Schelued:
         <span  class="info">
           ${date}</span
         ></p>
@@ -363,16 +363,6 @@ const renderTasks = () => {
         taskCards.splice(cardID, 1);
         renderTasks();
       });
-
-      // modalHandler(true, alertMessage, () => {
-      //   const cardID = event.target.dataset.id;
-      //   console.log("ID of card we want delete : ", cardID);
-      //   console.log("taskCards before Render: ", taskCards);
-      //   taskCards.splice(cardID, 1);
-      //   renderTasks();
-      //   modalHandler(false, alertMessage);
-      // });
-      //deleteAlertHandler(card);
     });
   });
   document.querySelectorAll(".editBtn").forEach((btn) => {
