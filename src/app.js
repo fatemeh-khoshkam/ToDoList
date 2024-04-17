@@ -1,5 +1,5 @@
 import Modal from "./modules/Modal.js";
-import Button from "./modules/Button.js";
+import DeleteButton from "./modules/Button.js";
 
 /// Toggle Menu
 const btnOpenMenu = document.querySelector(".btn-open-menu");
@@ -299,24 +299,29 @@ const renderTasks = () => {
     );
   });
 
-  const deleteButton = new Button(".deleteBtn", alertModal);
-  const editButton = new Button(".editBtn", formTaskModal);
+  const deleteButton = new DeleteButton(
+    ".deleteBtn",
+    alertModal,
+    taskCards,
+    renderTasks
+  );
+  //const editButton = new Button(".editBtn", formTaskModal);
 
   console.log(deleteButton);
-  console.log(editButton);
+  //console.log(editButton);
 
-  document.querySelectorAll(".deleteBtn").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      // console.log("clicked");
-      alertModal.show(() => {
-        const cardID = event.target.dataset.id;
-        // console.log("ID of card we want delete : ", cardID);
-        // console.log("taskCards before Render: ", taskCards);
-        taskCards.splice(cardID, 1);
-        renderTasks();
-      });
-    });
-  });
+  // document.querySelectorAll(".deleteBtn").forEach((btn) => {
+  //   btn.addEventListener("click", (event) => {
+  //     // console.log("clicked");
+  //     alertModal.show(() => {
+  //       const cardID = event.target.dataset.id;
+  //       // console.log("ID of card we want delete : ", cardID);
+  //       // console.log("taskCards before Render: ", taskCards);
+  //       taskCards.splice(cardID, 1);
+  //       renderTasks();
+  //     });
+  //   });
+  // });
   document.querySelectorAll(".editBtn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
       actionState.value = "edit";

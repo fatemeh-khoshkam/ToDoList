@@ -17,4 +17,23 @@ class Button {
   }
 }
 
-export default Button;
+class DeleteButton extends Button {
+  constructor(action, modal, taskCards, renderTasks) {
+    super(action, modal);
+    this.taskCards = taskCards;
+    this.renderTasks = renderTasks;
+  }
+
+  onClick(event) {
+    this.modal.show(() => {
+      //console.log(event.target);
+      const cardID = event.target.dataset.id;
+      console.log("ID of card we want delete : ", cardID);
+      console.log("taskCards before Render: ", this.taskCards);
+      this.taskCards.splice(cardID, 1);
+      this.renderTasks();
+    });
+  }
+}
+
+export default DeleteButton;
