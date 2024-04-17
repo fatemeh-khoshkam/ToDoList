@@ -1,4 +1,5 @@
 import Modal from "./modules/Modal.js";
+import Button from "./modules/Button.js";
 
 /// Toggle Menu
 const btnOpenMenu = document.querySelector(".btn-open-menu");
@@ -298,6 +299,11 @@ const renderTasks = () => {
     );
   });
 
+  const deleteButton = new Button(".deleteBtn", alertModal);
+  const editButton = new Button(".editBtn", formTaskModal);
+
+  console.log(deleteButton);
+  console.log(editButton);
 
   document.querySelectorAll(".deleteBtn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
