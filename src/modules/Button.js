@@ -43,6 +43,23 @@ class EditButton extends Button {
     this.renderTasks = renderTasks;
     this.getFormTask = getFormTask;
   }
+
+  onClick(event) {
+    const cardID = event.target.dataset.id;
+    if (!this.taskCards[cardID]) return;
+
+    Object.entries(this.taskCards[cardID]).forEach(([key, value]) => {
+      const input = document.querySelector(`.${key}`);
+      if (input) {
+        input.value = value;
+      }
+    });
+
+    this.modal.show(() => {
+      this.taskCards[cardID] = getFormTask();
+      this.renderTasks();
+    });
+  }
 }
 
 export { DeleteButton, EditButton };
