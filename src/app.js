@@ -73,61 +73,6 @@ themeToggleBtn.addEventListener("click", function () {
   }
 });
 
-/// new task Modal
-
-let activeModalCallback;
-
-function modalHandler(val, modal, onSucess) {
-  if (val) {
-    fadeIn(modal);
-  } else {
-    fadeOut(modal);
-    return;
-  }
-
-  activeModalCallback = onSucess;
-
-  const primaryBtn = modal.querySelector(".primaryBtn");
-  const secondaryBtn = modal.querySelector(".secondaryBtn");
-
-  const primaryHandler = () => {
-    onSucess();
-    modalHandler(false, modal);
-  };
-
-  if (!secondaryBtn) return;
-  if (!primaryBtn) return;
-
-  secondaryBtn.addEventListener("click", () => {
-    modalHandler(false, modal);
-  });
-
-  //primaryBtn.removeEventListener("click", primaryHandler);
-  primaryBtn.addEventListener("click", primaryHandler, { once: true });
-}
-function fadeOut(el) {
-  el.style.opacity = 1;
-  (function fade() {
-    if ((el.style.opacity -= 0.1) < 0) {
-      el.style.display = "none";
-    } else {
-      requestAnimationFrame(fade);
-    }
-  })();
-}
-function fadeIn(el, display) {
-  el.style.opacity = 0;
-  el.style.display = display || "flex";
-  (function fade() {
-    let val = parseFloat(el.style.opacity);
-    if (!((val += 0.2) > 1)) {
-      el.style.opacity = val;
-      requestAnimationFrame(fade);
-    }
-  })();
-}
-
-/// Add new task to html
 const dashboardContainer = document.querySelector("#dashboardContainer");
 const submitFormBtn = document.querySelector(".submitFormBtn");
 const closeBtns = document.querySelectorAll(".closeBtn");
@@ -353,13 +298,14 @@ const renderTasks = () => {
     );
   });
 
+
   document.querySelectorAll(".deleteBtn").forEach((btn) => {
     btn.addEventListener("click", (event) => {
-      console.log("clicked");
+      // console.log("clicked");
       alertModal.show(() => {
         const cardID = event.target.dataset.id;
-        console.log("ID of card we want delete : ", cardID);
-        console.log("taskCards before Render: ", taskCards);
+        // console.log("ID of card we want delete : ", cardID);
+        // console.log("taskCards before Render: ", taskCards);
         taskCards.splice(cardID, 1);
         renderTasks();
       });
@@ -370,6 +316,7 @@ const renderTasks = () => {
       actionState.value = "edit";
       const cardID = event.target.dataset.id;
       if (!taskCards[cardID]) return;
+
       Object.entries(taskCards[cardID]).forEach(([key, value]) => {
         const input = document.querySelector(`.${key}`);
         if (input) {
