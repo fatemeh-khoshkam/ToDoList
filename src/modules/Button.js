@@ -56,7 +56,7 @@ class EditButton extends Button {
     });
 
     this.modal.show(() => {
-      this.taskCards[cardID] = getFormTask();
+      this.taskCards[cardID] = this.getFormTask();
       this.renderTasks();
     });
   }
