@@ -1,5 +1,5 @@
 import Modal from "./modules/Modal.js";
-import DeleteButton from "./modules/Button.js";
+import { DeleteButton, EditButton } from "./modules/Button.js";
 
 /// Toggle Menu
 const btnOpenMenu = document.querySelector(".btn-open-menu");
@@ -305,10 +305,16 @@ const renderTasks = () => {
     taskCards,
     renderTasks
   );
-  //const editButton = new Button(".editBtn", formTaskModal);
+  const editButton = new EditButton(
+    ".editBtn",
+    formTaskModal,
+    taskCards,
+    renderTasks,
+    getFormTask
+  );
 
   console.log(deleteButton);
-  //console.log(editButton);
+  console.log(editButton);
 
   // document.querySelectorAll(".deleteBtn").forEach((btn) => {
   //   btn.addEventListener("click", (event) => {
@@ -322,23 +328,23 @@ const renderTasks = () => {
   //     });
   //   });
   // });
-  document.querySelectorAll(".editBtn").forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      actionState.value = "edit";
-      const cardID = event.target.dataset.id;
-      if (!taskCards[cardID]) return;
+  // document.querySelectorAll(".editBtn").forEach((btn) => {
+  //   btn.addEventListener("click", (event) => {
+  //     actionState.value = "edit";
+  //     const cardID = event.target.dataset.id;
+  //     if (!taskCards[cardID]) return;
 
-      Object.entries(taskCards[cardID]).forEach(([key, value]) => {
-        const input = document.querySelector(`.${key}`);
-        if (input) {
-          input.value = value;
-        }
-      });
+  //     Object.entries(taskCards[cardID]).forEach(([key, value]) => {
+  //       const input = document.querySelector(`.${key}`);
+  //       if (input) {
+  //         input.value = value;
+  //       }
+  //     });
 
-      formTaskModal.show(() => {
-        taskCards[cardID] = getFormTask();
-        renderTasks();
-      });
-    });
-  });
+  //     formTaskModal.show(() => {
+  //       taskCards[cardID] = getFormTask();
+  //       renderTasks();
+  //     });
+  //   });
+  // });
 };

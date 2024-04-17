@@ -36,4 +36,13 @@ class DeleteButton extends Button {
   }
 }
 
-export default DeleteButton;
+class EditButton extends Button {
+  constructor(action, modal, taskCards, renderTasks, getFormTask) {
+    super(action, modal);
+    this.taskCards = taskCards;
+    this.renderTasks = renderTasks;
+    this.getFormTask = getFormTask;
+  }
+}
+
+export { DeleteButton, EditButton };
