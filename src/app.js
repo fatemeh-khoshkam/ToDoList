@@ -280,7 +280,7 @@ const renderTasks = () => {
   // Clear tasks before rendering new ones
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
-
+  showDoneTasks();
   taskCards.forEach((task, i) => {
     //errMessage.textContent = "";
     const { title, description, date, priority } = task;
@@ -344,7 +344,27 @@ const chkTasksExisting = (tasks) => {
   }
 };
 
-const checkingDoneTasks = () => {};
+const showDoneTasks = () => {
+  taskCards.find((task) => {
+    if (task.completed === true) {
+      //task.checked = true;
+    }
+  });
+};
+
+const doneTaskWithTitle = (chkBox, title) => {
+  if (!chkBox.checked) {
+    taskCards.find((task) => {
+      if (task.title === title) task["completed"] = false;
+    });
+  }
+
+  if (chkBox.checked) {
+    taskCards.find((task) => {
+      if (task.title === title) task["completed"] = true;
+    });
+  }
+};
 
 const doneTasks = () => {
   const allChks = document.querySelectorAll(".card input[type='checkbox']");
@@ -353,17 +373,8 @@ const doneTasks = () => {
       const card = event.target.closest(".card");
       const titleOfTask = card.querySelector(".titleInfo").textContent.trim();
 
-      taskCards.find((task) => {
-        if (task.title === titleOfTask) {
-          task["completed"] = true;
-
-          console.log(task);
-        }
-      });
+      doneTaskWithTitle(input, titleOfTask);
       storeTasksInLocalStorage(taskCards);
-      // console.log(taskCards);
-      // console.log(event.target.closest(".card"));
-      // console.log(titleOfTask);
     });
   });
   console.log(allChks);
