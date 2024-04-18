@@ -86,37 +86,18 @@ const allTasks = document.querySelector(".allTasks");
 const dashboard = document.querySelector(".dashboard");
 const newTaskModal = document.querySelector("#newTask");
 const actionState = document.querySelector(".action");
+
 const alertMessage = document.querySelector("#alertModal");
 const alertModal = new Modal(alertMessage);
 alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
 formTaskModal.init();
-let taskCards = [
-  // {
-  //   title: "title for task 1",
-  //   description: "description for task 1",
-  //   date: "2023-02-08",
-  //   priority: "Low",
-  // },
-  // {
-  //   title: "title for task 1",
-  //   description: "description for task 1",
-  //   date: "2024-02-08",
-  //   priority: "Meduim",
-  // },
-  // {
-  //   title: "title for task 1",
-  //   description: "description for task 1",
-  //   date: "2022-02-08",
-  //   priority: "High",
-  // },
-];
+let taskCards = [];
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
   loadTasksFromLocalStorage();
-  //renderTasks();
   taskContainer.style.display = "none";
 });
 
@@ -263,8 +244,8 @@ addNewTask.forEach((el) => {
       try {
         const task = getFormTask();
         taskCards.push(task);
+        chkTasksExisting(taskCards);
         storeTasksInLocalStorage(taskCards);
-        console.log(taskCards);
         renderTasks();
       } catch (field) {
         throw field;
@@ -281,7 +262,7 @@ closeBtns.forEach((btn) => {
 allTasks.addEventListener("click", () => {
   dashboardContainer.style.display = "none";
   taskContainer.style.display = "flex";
-  //renderTasks();
+  loadTasksFromLocalStorage();
 });
 
 // Showing dashboard and hiding tasks container
@@ -296,12 +277,15 @@ const renderTasks = () => {
   cards.forEach((card) => card.remove());
 
   taskCards.forEach((task, i) => {
+    //errMessage.textContent = "";
     const { title, description, date, priority } = task;
     taskContainer.insertAdjacentHTML(
       "beforeend",
       displayTask(title, description, date, priority, i)
     );
   });
+
+  chkTasksExisting(taskCards);
 
   const deleteButton = new DeleteButton(
     ".deleteBtn",
@@ -333,10 +317,22 @@ const getTasksFromLocalStorage = () => {
 // Function to display tasks
 const loadTasksFromLocalStorage = () => {
   const tasks = getTasksFromLocalStorage();
+  chkTasksExisting(tasks);
 
   if (tasks.length > 0) {
     // Render the existing tasks on page load
     taskCards = tasks;
     renderTasks();
+  }
+};
+
+const chkTasksExisting = (tasks) => {
+  const errMessage = document.querySelector(".errMessage");
+  if (tasks.length === 0) {
+    errMessage.textContent = "You don't have any tasks yet 🙁";
+    errMessage.style.display = "flex";
+  } else {
+    errMessage.textContent = "";
+    errMessage.style.display = "none";
   }
 };
