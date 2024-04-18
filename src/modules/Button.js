@@ -36,11 +36,19 @@ class DeleteButton extends Button {
 }
 
 class EditButton extends Button {
-  constructor(action, modal, taskCards, renderTasks, getFormTask) {
+  constructor(
+    action,
+    modal,
+    taskCards,
+    renderTasks,
+    getFormTask,
+    storeTaskInLocal
+  ) {
     super(action, modal);
     this.taskCards = taskCards;
     this.renderTasks = renderTasks;
     this.getFormTask = getFormTask;
+    this.storeTaskInLocal = storeTaskInLocal;
   }
 
   onClick(event) {
@@ -56,6 +64,7 @@ class EditButton extends Button {
 
     this.modal.show(() => {
       this.taskCards[cardID] = this.getFormTask();
+      this.storeTaskInLocal(this.taskCards);
       this.renderTasks();
     });
   }

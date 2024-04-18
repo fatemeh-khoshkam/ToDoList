@@ -315,7 +315,8 @@ const renderTasks = () => {
     formTaskModal,
     taskCards,
     renderTasks,
-    getFormTask
+    getFormTask,
+    storeTasksInLocalStorage
   );
 };
 
