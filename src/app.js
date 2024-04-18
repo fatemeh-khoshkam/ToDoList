@@ -97,6 +97,7 @@ let taskCards = [];
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
+
   loadTasksFromLocalStorage();
   taskContainer.style.display = "none";
 });
@@ -280,7 +281,7 @@ const renderTasks = () => {
   // Clear tasks before rendering new ones
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
-  showDoneTasks();
+  //showDoneTasks();
   taskCards.forEach((task, i) => {
     //errMessage.textContent = "";
     const { title, description, date, priority } = task;
@@ -329,6 +330,7 @@ const loadTasksFromLocalStorage = () => {
     // Render the existing tasks on page load
     taskCards = tasks;
     renderTasks();
+    showDoneTasks();
     doneTasks();
   }
 };
@@ -345,10 +347,17 @@ const chkTasksExisting = (tasks) => {
 };
 
 const showDoneTasks = () => {
-  taskCards.find((task) => {
-    if (task.completed === true) {
-      //task.checked = true;
-    }
+  const cards = document.querySelectorAll(".card");
+
+  if (!cards) return;
+
+  cards.forEach((card) => {
+    const chkBoxOfTask = card.querySelector('input[type="checkbox"]');
+    const title = card.querySelector(".titleInfo").textContent.trim();
+
+    taskCards.find((task) => {
+      if (task.title === title) chkBoxOfTask.checked = task.completed;
+    });
   });
 };
 
@@ -369,5 +378,4 @@ const doneTasks = () => {
       storeTasksInLocalStorage(taskCards);
     });
   });
-  console.log(allChks);
 };
