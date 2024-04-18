@@ -160,11 +160,11 @@ const closeModal = () => {
 
 // Give a color name based on level priority
 const priorityLevel = (level) => {
-  return {
-    Low: "green",
-    Meduim: "amber",
-    High: "red",
-  }[level];
+  // return {
+  //   Low: "green",
+  //   Meduim: "amber",
+  //   High: "red",
+  // }[level];
 
   if (level === "Low") return "green";
   if (level === "Meduim") return "amber";
@@ -176,16 +176,21 @@ const priorityLevel = (level) => {
 // 3. return Object which has 4 property based on user filled on task form
 
 const getFormTask = () => {
-  const fields = ["title", "description", "date", "priority"];
+  const fields = ["title", "description", "date", "priority", "completed"];
   const taskObj = {};
 
   for (let field of fields) {
-    const value = document.querySelector(`.${field}`).value.trim();
-    console.log(value);
-    if (!value) {
-      throw `${field}`;
+    if (field === "completed") {
+      taskObj[field] = false;
+    } else {
+      const value = document.querySelector(`.${field}`).value.trim();
+      console.log(value);
+
+      if (!value) {
+        throw `${field}`;
+      }
+      taskObj[field] = value;
     }
-    taskObj[field] = value;
   }
 
   console.log(taskObj);
@@ -203,14 +208,14 @@ const displayTask = (title, description, date, priority, dataID) => {
     <div class="flex items-center justify-between">
       <label class="flex items-center cursor-pointer ">
           <input type="checkbox" class="peer w-5 h-5 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded-lg border border-slate-300">
-          <span class="peer-checked:line-through select-none info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver" >
+          <span class="titleInfo peer-checked:line-through select-none info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver" >
           ${title}
           </span>
           <span class="peer-checked:inline-flex hidden ml-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
       </label>
 
       <p  class="text-sm font-medium text-gray-500">
-        Priority: <span class="info text-${priorityClr}-600" >${priority}</span>
+        Priority: <span class="info text-${priorityClr}-600">${priority}</span>
       </p>
 
     </div>
@@ -279,6 +284,7 @@ const renderTasks = () => {
   taskCards.forEach((task, i) => {
     //errMessage.textContent = "";
     const { title, description, date, priority } = task;
+
     taskContainer.insertAdjacentHTML(
       "beforeend",
       displayTask(title, description, date, priority, i)
@@ -323,6 +329,7 @@ const loadTasksFromLocalStorage = () => {
     // Render the existing tasks on page load
     taskCards = tasks;
     renderTasks();
+    doneTasks();
   }
 };
 
@@ -335,4 +342,29 @@ const chkTasksExisting = (tasks) => {
     errMessage.textContent = "";
     errMessage.style.display = "none";
   }
+};
+
+const checkingDoneTasks = () => {};
+
+const doneTasks = () => {
+  const allChks = document.querySelectorAll(".card input[type='checkbox']");
+  allChks.forEach((input) => {
+    input.addEventListener("click", (event) => {
+      const card = event.target.closest(".card");
+      const titleOfTask = card.querySelector(".titleInfo").textContent.trim();
+
+      taskCards.find((task) => {
+        if (task.title === titleOfTask) {
+          task["completed"] = true;
+
+          console.log(task);
+        }
+      });
+      storeTasksInLocalStorage(taskCards);
+      // console.log(taskCards);
+      // console.log(event.target.closest(".card"));
+      // console.log(titleOfTask);
+    });
+  });
+  console.log(allChks);
 };
