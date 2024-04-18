@@ -18,19 +18,18 @@ class Button {
 }
 
 class DeleteButton extends Button {
-  constructor(action, modal, taskCards, renderTasks) {
+  constructor(action, modal, taskCards, renderTasks, storeTaskInLocal) {
     super(action, modal);
     this.taskCards = taskCards;
     this.renderTasks = renderTasks;
+    this.storeTaskInLocal = storeTaskInLocal;
   }
 
   onClick(event) {
     this.modal.show(() => {
-      //console.log(event.target);
       const cardID = event.target.dataset.id;
-      console.log("ID of card we want delete : ", cardID);
-      console.log("taskCards before Render: ", this.taskCards);
       this.taskCards.splice(cardID, 1);
+      this.storeTaskInLocal(this.taskCards);
       this.renderTasks();
     });
   }

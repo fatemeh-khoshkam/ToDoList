@@ -91,31 +91,32 @@ const alertModal = new Modal(alertMessage);
 alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
 formTaskModal.init();
-const taskCards = [
-  {
-    title: "title for task 1",
-    description: "description for task 1",
-    date: "2023-02-08",
-    priority: "Low",
-  },
-  {
-    title: "title for task 1",
-    description: "description for task 1",
-    date: "2024-02-08",
-    priority: "Meduim",
-  },
-  {
-    title: "title for task 1",
-    description: "description for task 1",
-    date: "2022-02-08",
-    priority: "High",
-  },
+let taskCards = [
+  // {
+  //   title: "title for task 1",
+  //   description: "description for task 1",
+  //   date: "2023-02-08",
+  //   priority: "Low",
+  // },
+  // {
+  //   title: "title for task 1",
+  //   description: "description for task 1",
+  //   date: "2024-02-08",
+  //   priority: "Meduim",
+  // },
+  // {
+  //   title: "title for task 1",
+  //   description: "description for task 1",
+  //   date: "2022-02-08",
+  //   priority: "High",
+  // },
 ];
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
-  renderTasks();
+  loadTasksFromLocalStorage();
+  //renderTasks();
   taskContainer.style.display = "none";
 });
 
@@ -173,7 +174,6 @@ const clearFields = (inputs) => {
 // 2. Clear Input values of Task form after 1 second
 const closeModal = () => {
   formTaskModal.hide();
-  //modalHandler(false, newTaskModal);
   setTimeout(clearFields(formInputs), 1000);
 };
 
@@ -206,6 +206,7 @@ const getFormTask = () => {
     }
     taskObj[field] = value;
   }
+
   console.log(taskObj);
   return taskObj;
 };
@@ -262,6 +263,8 @@ addNewTask.forEach((el) => {
       try {
         const task = getFormTask();
         taskCards.push(task);
+        storeTasksInLocalStorage(taskCards);
+        console.log(taskCards);
         renderTasks();
       } catch (field) {
         throw field;
@@ -278,6 +281,7 @@ closeBtns.forEach((btn) => {
 allTasks.addEventListener("click", () => {
   dashboardContainer.style.display = "none";
   taskContainer.style.display = "flex";
+  //renderTasks();
 });
 
 // Showing dashboard and hiding tasks container
@@ -303,7 +307,8 @@ const renderTasks = () => {
     ".deleteBtn",
     alertModal,
     taskCards,
-    renderTasks
+    renderTasks,
+    storeTasksInLocalStorage
   );
   const editButton = new EditButton(
     ".editBtn",
@@ -312,39 +317,25 @@ const renderTasks = () => {
     renderTasks,
     getFormTask
   );
+};
 
-  console.log(deleteButton);
-  console.log(editButton);
+// Function to store tasks in local storage
+const storeTasksInLocalStorage = (tasks) => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
-  // document.querySelectorAll(".deleteBtn").forEach((btn) => {
-  //   btn.addEventListener("click", (event) => {
-  //     // console.log("clicked");
-  //     alertModal.show(() => {
-  //       const cardID = event.target.dataset.id;
-  //       // console.log("ID of card we want delete : ", cardID);
-  //       // console.log("taskCards before Render: ", taskCards);
-  //       taskCards.splice(cardID, 1);
-  //       renderTasks();
-  //     });
-  //   });
-  // });
-  // document.querySelectorAll(".editBtn").forEach((btn) => {
-  //   btn.addEventListener("click", (event) => {
-  //     actionState.value = "edit";
-  //     const cardID = event.target.dataset.id;
-  //     if (!taskCards[cardID]) return;
+// Function to retrieve tasks from local storage
+const getTasksFromLocalStorage = () => {
+  return JSON.parse(localStorage.getItem("tasks")) || [];
+};
 
-  //     Object.entries(taskCards[cardID]).forEach(([key, value]) => {
-  //       const input = document.querySelector(`.${key}`);
-  //       if (input) {
-  //         input.value = value;
-  //       }
-  //     });
+// Function to display tasks
+const loadTasksFromLocalStorage = () => {
+  const tasks = getTasksFromLocalStorage();
 
-  //     formTaskModal.show(() => {
-  //       taskCards[cardID] = getFormTask();
-  //       renderTasks();
-  //     });
-  //   });
-  // });
+  if (tasks.length > 0) {
+    // Render the existing tasks on page load
+    taskCards = tasks;
+    renderTasks();
+  }
 };
