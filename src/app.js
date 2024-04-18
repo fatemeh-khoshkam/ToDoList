@@ -353,17 +353,9 @@ const showDoneTasks = () => {
 };
 
 const doneTaskWithTitle = (chkBox, title) => {
-  if (!chkBox.checked) {
-    taskCards.find((task) => {
-      if (task.title === title) task["completed"] = false;
-    });
-  }
-
-  if (chkBox.checked) {
-    taskCards.find((task) => {
-      if (task.title === title) task["completed"] = true;
-    });
-  }
+  taskCards.find((task) => {
+    if (task.title === title) task.completed = chkBox.checked;
+  });
 };
 
 const doneTasks = () => {
