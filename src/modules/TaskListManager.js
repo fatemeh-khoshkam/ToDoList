@@ -5,9 +5,7 @@ class TaskListManager {
 
     const storedTasks = localStorage.getItem("tasks");
 
-    if (storedTasks !== null || storedTasks !== "undefined") {
-      console.log("undefined");
-      console.log(storedTasks);
+    if (storedTasks !== "undefined" && storedTasks !== null) {
       try {
         this.tasks = JSON.parse(storedTasks);
       } catch (e) {
@@ -15,6 +13,7 @@ class TaskListManager {
         this.tasks = [];
       }
     } else {
+      console.log(1);
       this.tasks = [];
     }
 
