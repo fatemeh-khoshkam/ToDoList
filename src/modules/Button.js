@@ -53,9 +53,9 @@ class EditButton extends Button {
 
   onClick(event) {
     const cardID = event.target.dataset.id;
-    if (!this.taskCards[cardID]) return;
+    if (!this.taskCards.tasks[cardID]) return;
 
-    Object.entries(this.taskCards[cardID]).forEach(([key, value]) => {
+    Object.entries(this.taskCards.tasks[cardID]).forEach(([key, value]) => {
       const input = document.querySelector(`.${key}`);
       if (input) {
         input.value = value;
@@ -63,7 +63,8 @@ class EditButton extends Button {
     });
 
     this.modal.show(() => {
-      this.taskCards[cardID] = this.getFormTask();
+      const { title, description, date, priority } = this.getFormTask();
+      this.taskCards.edit(cardID, title, description, date, priority);
       this.storeTaskInLocal(this.taskCards);
       this.renderTasks();
     });
