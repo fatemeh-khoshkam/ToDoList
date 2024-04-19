@@ -93,12 +93,11 @@ const alertModal = new Modal(alertMessage);
 alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
 formTaskModal.init();
-let taskCards = [];
 
-let tasks = new TaskListManager();
-tasks.add("title", "description", "date", "priority");
-tasks.add("title1", "description1", "date1", "priority1");
-console.log(tasks);
+let list = new TaskListManager();
+// list.add("title", "description", "date", "priority");
+// list.add("title1", "description1", "date1", "priority1");
+// console.log(list);
 
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
@@ -182,24 +181,31 @@ const priorityLevel = (level) => {
 // 3. return Object which has 4 property based on user filled on task form
 
 const getFormTask = () => {
-  const fields = ["title", "description", "date", "priority", "completed"];
+  const fields = ["title", "description", "date", "priority"];
   const taskObj = {};
 
   for (let field of fields) {
-    if (field === "completed") {
-      taskObj[field] = false;
-    } else {
-      const value = document.querySelector(`.${field}`).value.trim();
-      console.log(value);
+    // if (field === "completed") {
+    //   taskObj[field] = false;
+    // } else {
+    //   const value = document.querySelector(`.${field}`).value.trim();
+    //   console.log(value);
 
-      if (!value) {
-        throw `${field}`;
-      }
-      taskObj[field] = value;
+    //   if (!value) {
+    //     throw `${field}`;
+    //   }
+    //   taskObj[field] = value;
+    // }
+    const value = document.querySelector(`.${field}`).value.trim();
+    console.log(value);
+
+    if (!value) {
+      throw `${field}`;
     }
+    taskObj[field] = value;
   }
 
-  console.log(taskObj);
+  //console.log(taskObj);
   return taskObj;
 };
 
@@ -253,10 +259,12 @@ addNewTask.forEach((el) => {
     aside.classList.add("closed");
     formTaskModal.show(() => {
       try {
-        const task = getFormTask();
-        taskCards.push(task);
-        chkTasksExisting(taskCards);
-        storeTasksInLocalStorage(taskCards);
+        const { title, description, date, priority } = getFormTask();
+        list.add(title, description, date, priority);
+        console.log(title, description, date, priority);
+        console.log(list);
+        chkTasksExisting(list);
+        storeTasksInLocalStorage(list);
         renderTasks();
       } catch (field) {
         throw field;
@@ -287,7 +295,7 @@ const renderTasks = () => {
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
 
-  taskCards.forEach((task, i) => {
+  list.tasks.forEach((task, i) => {
     const { title, description, date, priority } = task;
 
     taskContainer.insertAdjacentHTML(
@@ -296,19 +304,19 @@ const renderTasks = () => {
     );
   });
 
-  chkTasksExisting(taskCards);
+  chkTasksExisting(list.tasks);
 
   const deleteButton = new DeleteButton(
     ".deleteBtn",
     alertModal,
-    taskCards,
+    list.tasks,
     renderTasks,
     storeTasksInLocalStorage
   );
   const editButton = new EditButton(
     ".editBtn",
     formTaskModal,
-    taskCards,
+    list.tasks,
     renderTasks,
     getFormTask,
     storeTasksInLocalStorage
@@ -327,12 +335,16 @@ const getTasksFromLocalStorage = () => {
 
 // Function to display tasks
 const loadTasksFromLocalStorage = () => {
-  const tasks = getTasksFromLocalStorage();
-  chkTasksExisting(tasks);
+  const data = getTasksFromLocalStorage();
+  console.log(data.tasks);
+  //chkTasksExisting(data.tasks);
 
-  if (tasks.length > 0) {
+  if (!data.tasks) return;
+
+  if (data.tasks.length > 0) {
     // Render the existing tasks on page load
-    taskCards = tasks;
+    list = data;
+    console.log("ffff");
     renderTasks();
     toggleCompletedTasks();
     handleCheckboxClicks();
@@ -362,7 +374,7 @@ const toggleCompletedTasks = () => {
     const chkBoxOfTask = card.querySelector('input[type="checkbox"]');
     const title = card.querySelector(".titleInfo").textContent.trim();
 
-    taskCards.find((task) => {
+    list.tasks.find((task) => {
       if (task.title === title) chkBoxOfTask.checked = task.completed;
     });
   });
@@ -378,11 +390,11 @@ const handleCheckboxClicks = () => {
       const card = event.target.closest(".card");
       const titleOfTask = card.querySelector(".titleInfo").textContent.trim();
 
-      taskCards.find((task) => {
+      list.tasks.find((task) => {
         if (task.title === titleOfTask) task.completed = input.checked;
       });
 
-      storeTasksInLocalStorage(taskCards);
+      storeTasksInLocalStorage(list);
     });
   });
 };
