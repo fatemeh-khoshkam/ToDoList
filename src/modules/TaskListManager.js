@@ -1,8 +1,15 @@
 class TaskListManager {
   constructor() {
-    // TODO: Fetch tasks from the localstorage and if there is none
+    // Fetch tasks from the localstorage and if there is none
     // then, fill the tasks with empty array.
-    this.tasks = [];
+
+    const localStorageTasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (localStorageTasks) {
+      this.tasks = localStorageTasks.tasks;
+    } else {
+      this.tasks = [];
+    }
   }
 
   // We're isolatting task definition here so we don't need to
@@ -15,6 +22,10 @@ class TaskListManager {
       priority,
       completed: false,
     });
+  }
+
+  remove(id) {
+    this.tasks.splice(id, 1);
   }
 }
 

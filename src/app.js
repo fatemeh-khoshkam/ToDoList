@@ -261,8 +261,6 @@ addNewTask.forEach((el) => {
       try {
         const { title, description, date, priority } = getFormTask();
         list.add(title, description, date, priority);
-        console.log(title, description, date, priority);
-        console.log(list);
         chkTasksExisting(list);
         storeTasksInLocalStorage(list);
         renderTasks();
@@ -304,19 +302,19 @@ const renderTasks = () => {
     );
   });
 
-  chkTasksExisting(list.tasks);
+  //chkTasksExisting(list.tasks);
 
   const deleteButton = new DeleteButton(
     ".deleteBtn",
     alertModal,
-    list.tasks,
+    list,
     renderTasks,
     storeTasksInLocalStorage
   );
   const editButton = new EditButton(
     ".editBtn",
     formTaskModal,
-    list.tasks,
+    list,
     renderTasks,
     getFormTask,
     storeTasksInLocalStorage
@@ -335,15 +333,15 @@ const getTasksFromLocalStorage = () => {
 
 // Function to display tasks
 const loadTasksFromLocalStorage = () => {
-  const data = getTasksFromLocalStorage();
-  console.log(data.tasks);
+  // const data = getTasksFromLocalStorage();
+  // console.log(data);
   //chkTasksExisting(data.tasks);
 
-  if (!data.tasks) return;
+  if (!list.tasks) return;
 
-  if (data.tasks.length > 0) {
+  if (list.tasks.length > 0) {
     // Render the existing tasks on page load
-    list = data;
+    //list = data;
     console.log("ffff");
     renderTasks();
     toggleCompletedTasks();

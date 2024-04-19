@@ -28,7 +28,7 @@ class DeleteButton extends Button {
   onClick(event) {
     this.modal.show(() => {
       const cardID = event.target.dataset.id;
-      this.taskCards.splice(cardID, 1);
+      this.taskCards.remove(cardID);
       this.storeTaskInLocal(this.taskCards);
       this.renderTasks();
     });
