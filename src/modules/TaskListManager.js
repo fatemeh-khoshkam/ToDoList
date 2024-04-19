@@ -7,13 +7,12 @@ class TaskListManager {
 
     if (storedTasks !== "undefined" && storedTasks !== null) {
       try {
-        this.tasks = JSON.parse(storedTasks);
+        this.tasks = JSON.parse(storedTasks).tasks;
       } catch (e) {
         console.error("Error parsing tasks from localStorage:", e);
         this.tasks = [];
       }
     } else {
-      console.log(1);
       this.tasks = [];
     }
 
