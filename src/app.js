@@ -94,15 +94,10 @@ alertModal.init();
 const formTaskModal = new Modal(newTaskModal);
 formTaskModal.init();
 
-let list = new TaskListManager();
-// list.add("title", "description", "date", "priority");
-// list.add("title1", "description1", "date1", "priority1");
-// console.log(list);
-
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
-  loadTasksFromLocalStorage();
+  //loadTasksFromLocalStorage();
   taskContainer.style.display = "none";
 });
 
@@ -249,46 +244,12 @@ const displayTask = (title, description, date, priority, dataID) => {
   </div>
 </div>`;
 };
+// Function to store tasks in local storage
+const storeTasksInLocalStorage = (tasks) => {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
 
-// Showing task form and closing side menu
-addNewTask.forEach((el) => {
-  el.addEventListener("click", (event) => {
-    event.preventDefault();
-    clearFields(formInputs);
-    actionState.value = "create";
-    aside.classList.add("closed");
-    formTaskModal.show(() => {
-      try {
-        const { title, description, date, priority } = getFormTask();
-        list.add(title, description, date, priority);
-        chkTasksExisting(list);
-        storeTasksInLocalStorage(list);
-        renderTasks();
-      } catch (field) {
-        throw field;
-      }
-    });
-  });
-});
-
-closeBtns.forEach((btn) => {
-  btn.addEventListener("click", closeModal);
-});
-
-// Showing tasks container and hiding dashboard
-allTasks.addEventListener("click", () => {
-  dashboardContainer.style.display = "none";
-  taskContainer.style.display = "flex";
-  loadTasksFromLocalStorage();
-});
-
-// Showing dashboard and hiding tasks container
-dashboard.addEventListener("click", () => {
-  dashboardContainer.style.display = "block";
-  taskContainer.style.display = "none";
-});
-
-const renderTasks = () => {
+const renderTasks = (list) => {
   // Clear tasks before rendering new ones
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
@@ -308,49 +269,76 @@ const renderTasks = () => {
     ".deleteBtn",
     alertModal,
     list,
-    renderTasks,
     storeTasksInLocalStorage
   );
   const editButton = new EditButton(
     ".editBtn",
     formTaskModal,
     list,
-    renderTasks,
-    getFormTask,
-    storeTasksInLocalStorage
+    storeTasksInLocalStorage,
+    getFormTask
   );
 };
 
-// Function to store tasks in local storage
-const storeTasksInLocalStorage = (tasks) => {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
+let list = new TaskListManager(renderTasks);
 
-// Function to retrieve tasks from local storage
-const getTasksFromLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("tasks")) || [];
-};
+// Showing task form and closing side menu
+addNewTask.forEach((el) => {
+  el.addEventListener("click", (event) => {
+    event.preventDefault();
+    clearFields(formInputs);
+    actionState.value = "create";
+    aside.classList.add("closed");
+    formTaskModal.show(() => {
+      try {
+        const { title, description, date, priority } = getFormTask();
+        list.add(title, description, date, priority);
+        chkTasksExisting(list);
+        storeTasksInLocalStorage(list);
+        //renderTasks();
+      } catch (field) {
+        throw field;
+      }
+    });
+  });
+});
+
+closeBtns.forEach((btn) => {
+  btn.addEventListener("click", closeModal);
+});
+
+// Showing tasks container and hiding dashboard
+allTasks.addEventListener("click", () => {
+  dashboardContainer.style.display = "none";
+  taskContainer.style.display = "flex";
+  //loadTasksFromLocalStorage();
+});
+
+// Showing dashboard and hiding tasks container
+dashboard.addEventListener("click", () => {
+  dashboardContainer.style.display = "block";
+  taskContainer.style.display = "none";
+});
 
 // Function to display tasks
-const loadTasksFromLocalStorage = () => {
-  // const data = getTasksFromLocalStorage();
-  // console.log(data);
-  //chkTasksExisting(data.tasks);
+// const loadTasksFromLocalStorage = () => {
+//   // console.log(data);
+//   //chkTasksExisting(data.tasks);
 
-  if (!list.tasks) return;
+//   if (!list.tasks) return;
 
-  if (list.tasks.length > 0) {
-    // Render the existing tasks on page load
-    //list = data;
-    console.log("ffff");
-    renderTasks();
-    toggleCompletedTasks();
-    handleCheckboxClicks();
-    //showDoneTasks();
-    //doneTasks();
-    //line();
-  }
-};
+//   if (list.tasks.length > 0) {
+//     // Render the existing tasks on page load
+//     //list = data;
+//     console.log("ffff");
+//     renderTasks();
+//     toggleCompletedTasks();
+//     handleCheckboxClicks();
+//     //showDoneTasks();
+//     //doneTasks();
+//     //line();
+//   }
+// };
 
 const chkTasksExisting = (tasks) => {
   const errMessage = document.querySelector(".errMessage");

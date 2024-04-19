@@ -18,41 +18,32 @@ class Button {
 }
 
 class DeleteButton extends Button {
-  constructor(action, modal, taskCards, renderTasks, storeTaskInLocal) {
+  constructor(action, modal, taskCards, storeInLocal) {
     super(action, modal);
     this.taskCards = taskCards;
-    this.renderTasks = renderTasks;
-    this.storeTaskInLocal = storeTaskInLocal;
+    this.storeInLocal = storeInLocal;
   }
 
   onClick(event) {
     this.modal.show(() => {
       const cardID = event.target.dataset.id;
       this.taskCards.remove(cardID);
-      this.storeTaskInLocal(this.taskCards);
-      this.renderTasks();
+      this.storeInLocal();
     });
   }
 }
 
 class EditButton extends Button {
-  constructor(
-    action,
-    modal,
-    taskCards,
-    renderTasks,
-    getFormTask,
-    storeTaskInLocal
-  ) {
+  constructor(action, modal, taskCards, storeInLocal, getFormTask) {
     super(action, modal);
     this.taskCards = taskCards;
-    this.renderTasks = renderTasks;
+    this.storeInLocal = storeInLocal;
     this.getFormTask = getFormTask;
-    this.storeTaskInLocal = storeTaskInLocal;
   }
 
   onClick(event) {
     const cardID = event.target.dataset.id;
+    console.log(this.taskCards);
     if (!this.taskCards.tasks[cardID]) return;
 
     Object.entries(this.taskCards.tasks[cardID]).forEach(([key, value]) => {
@@ -65,8 +56,7 @@ class EditButton extends Button {
     this.modal.show(() => {
       const { title, description, date, priority } = this.getFormTask();
       this.taskCards.edit(cardID, title, description, date, priority);
-      this.storeTaskInLocal(this.taskCards);
-      this.renderTasks();
+      this.storeInLocal();
     });
   }
 }

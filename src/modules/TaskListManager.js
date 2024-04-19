@@ -1,14 +1,30 @@
 class TaskListManager {
-  constructor() {
+  constructor(render) {
     // Fetch tasks from the localstorage and if there is none
     // then, fill the tasks with empty array.
-    const localStorageTasks = JSON.parse(localStorage.getItem("tasks"));
 
-    if (localStorageTasks) {
-      this.tasks = localStorageTasks.tasks;
+    const storedTasks = localStorage.getItem("tasks");
+
+    if (storedTasks !== null || storedTasks !== "undefined") {
+      console.log("undefined");
+      console.log(storedTasks);
+      try {
+        this.tasks = JSON.parse(storedTasks);
+      } catch (e) {
+        console.error("Error parsing tasks from localStorage:", e);
+        this.tasks = [];
+      }
     } else {
       this.tasks = [];
     }
+
+    // if (localStorageTasks) {
+    //   this.tasks = localStorageTasks.tasks;
+    // } else {
+    //   this.tasks = [];
+    // }
+    this.render = render;
+    this.render(this);
   }
 
   // We're isolatting task definition here so we don't need to
@@ -21,10 +37,12 @@ class TaskListManager {
       priority,
       completed: false,
     });
+    this.render(this);
   }
 
   remove(id) {
     this.tasks.splice(id, 1);
+    this.render(this);
   }
 
   edit(id, title, description, date, priority) {
@@ -32,6 +50,8 @@ class TaskListManager {
     this.tasks[id].description = description;
     this.tasks[id].date = date;
     this.tasks[id].priority = priority;
+
+    this.render(this);
   }
 }
 
