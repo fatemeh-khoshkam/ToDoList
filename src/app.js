@@ -1,5 +1,6 @@
 import Modal from "./modules/Modal.js";
 import { DeleteButton, EditButton } from "./modules/Button.js";
+import TaskListManager from "./modules/TaskListManager.js";
 
 /// Toggle Menu
 const btnOpenMenu = document.querySelector(".btn-open-menu");
@@ -94,10 +95,14 @@ const formTaskModal = new Modal(newTaskModal);
 formTaskModal.init();
 let taskCards = [];
 
+let tasks = new TaskListManager();
+tasks.add("title", "description", "date", "priority");
+tasks.add("title1", "description1", "date1", "priority1");
+console.log(tasks);
+
 document.addEventListener("DOMContentLoaded", (event) => {
   console.log("DOM fully loaded and parsed");
   actionState.value = "";
-
   loadTasksFromLocalStorage();
   taskContainer.style.display = "none";
 });
@@ -215,15 +220,15 @@ const displayTask = (title, description, date, priority, dataID) => {
           <span class="peer-checked:inline-flex hidden ml-3 items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">Completed</span>
       </label>
 
-      <p  class="text-sm font-medium text-gray-500">
-        Priority: <span class="info text-${priorityClr}-600">${priority}</span>
+      <p  class="info text-sm font-medium text-gray-500">
+        Priority: <span class="text-${priorityClr}-600">${priority}</span>
       </p>
 
     </div>
     <div class="mt-2 flex items-end justify-between">
       <div>
-      <p  class="text-xs text-gray-500 text-semibold">Schelued:
-        <span  class="info">
+      <p  class="info text-xs text-gray-500 text-semibold">Schelued:
+        <span  class="">
           ${date}</span
         ></p>
         <p  class="info mt-1 max-w-2xl text-md text-gray-600">
@@ -281,9 +286,8 @@ const renderTasks = () => {
   // Clear tasks before rendering new ones
   const cards = document.querySelectorAll(".card");
   cards.forEach((card) => card.remove());
-  //showDoneTasks();
+
   taskCards.forEach((task, i) => {
-    //errMessage.textContent = "";
     const { title, description, date, priority } = task;
 
     taskContainer.insertAdjacentHTML(
@@ -330,8 +334,11 @@ const loadTasksFromLocalStorage = () => {
     // Render the existing tasks on page load
     taskCards = tasks;
     renderTasks();
-    showDoneTasks();
-    doneTasks();
+    toggleCompletedTasks();
+    handleCheckboxClicks();
+    //showDoneTasks();
+    //doneTasks();
+    //line();
   }
 };
 
@@ -346,7 +353,7 @@ const chkTasksExisting = (tasks) => {
   }
 };
 
-const showDoneTasks = () => {
+const toggleCompletedTasks = () => {
   const cards = document.querySelectorAll(".card");
 
   if (!cards) return;
@@ -361,21 +368,42 @@ const showDoneTasks = () => {
   });
 };
 
-const doneTaskWithTitle = (chkBox, title) => {
-  taskCards.find((task) => {
-    if (task.title === title) task.completed = chkBox.checked;
-  });
-};
-
-const doneTasks = () => {
+const handleCheckboxClicks = () => {
   const allChks = document.querySelectorAll(".card input[type='checkbox']");
+
+  if (!allChks) return;
+
   allChks.forEach((input) => {
     input.addEventListener("click", (event) => {
       const card = event.target.closest(".card");
       const titleOfTask = card.querySelector(".titleInfo").textContent.trim();
 
-      doneTaskWithTitle(input, titleOfTask);
+      taskCards.find((task) => {
+        if (task.title === titleOfTask) task.completed = input.checked;
+      });
+
       storeTasksInLocalStorage(taskCards);
     });
   });
 };
+
+// function line() {
+//   const cards = document.querySelectorAll(".card");
+//   cards.forEach((card) => {
+//     const chkBoxOfTask = card.querySelector('input[type="checkbox"]');
+//     const infoOfCard = card.querySelectorAll(".info");
+//     if (chkBoxOfTask.checked === true) {
+//       infoOfCard.forEach((el) => {
+//         el.style.textDecoration = "line-through";
+//         el.style.opacity = "0.4";
+//         el.style.cursor = "not-allowed";
+//       });
+//     } else {
+//       infoOfCard.forEach((el) => {
+//         el.style.textDecoration = "none";
+//         el.style.opacity = "1";
+//         el.style.cursor = "default";
+//       });
+//     }
+//   });
+// }
