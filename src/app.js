@@ -214,7 +214,7 @@ const displayTask = (title, description, date, priority, dataID) => {
   <div class="px-4 py-5 sm:px-6">
     <div class="flex items-center justify-between">
       <label class="flex items-center cursor-pointer ">
-          <input type="checkbox" class="peer w-5 h-5 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded-lg border border-slate-300">
+          <input data-id="${dataID}" type="checkbox" class="peer w-5 h-5 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded-lg border border-slate-300">
           <span class="titleInfo peer-checked:line-through select-none info pl-3 text-xl font-medium text-gray-800 dark:text-night-silver" >
           ${title}
           </span>
@@ -366,24 +366,14 @@ const toggleCompletedTasks = () => {
   });
 };
 
-const handleCheckboxClicks = () => {
-  const allChks = document.querySelectorAll(".card input[type='checkbox']");
-
-  if (!allChks) return;
-
-  allChks.forEach((input) => {
-    input.addEventListener("click", (event) => {
-      const card = event.target.closest(".card");
-      const titleOfTask = card.querySelector(".titleInfo").textContent.trim();
-
-      list.tasks.find((task) => {
-        if (task.title === titleOfTask) task.completed = input.checked;
-      });
-
-      storeTasksInLocalStorage(list);
-    });
+const allChks = document.querySelectorAll(".card input[type='checkbox']");
+allChks.forEach((input) => {
+  input.addEventListener("click", (event) => {
+    const chkID = event.target.dataset.id;
+    list.toggleTask(chkID, input);
+    storeTasksInLocalStorage(list);
   });
-};
+});
 
 // function line() {
 //   const cards = document.querySelectorAll(".card");

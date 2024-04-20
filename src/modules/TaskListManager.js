@@ -4,7 +4,6 @@ class TaskListManager {
     // then, fill the tasks with empty array.
 
     const storedTasks = localStorage.getItem("tasks");
-
     if (storedTasks !== "undefined" && storedTasks !== null) {
       try {
         this.tasks = JSON.parse(storedTasks).tasks;
@@ -16,11 +15,6 @@ class TaskListManager {
       this.tasks = [];
     }
 
-    // if (localStorageTasks) {
-    //   this.tasks = localStorageTasks.tasks;
-    // } else {
-    //   this.tasks = [];
-    // }
     this.render = render;
     this.render(this);
   }
@@ -50,6 +44,10 @@ class TaskListManager {
     this.tasks[id].priority = priority;
 
     this.render(this);
+  }
+
+  toggleTask(id, input) {
+    this.tasks[id].completed = input.checked;
   }
 }
 
