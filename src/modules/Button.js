@@ -27,10 +27,8 @@ class DeleteButton extends Button {
   onClick(event) {
     this.modal.show(() => {
       const cardID = event.target.dataset.id;
-      console.log(event);
-      //console.log(id);
       this.taskCards.remove(cardID);
-      this.storeInLocal();
+      this.storeInLocal(this.taskCards);
     });
   }
 }
@@ -45,8 +43,6 @@ class EditButton extends Button {
 
   onClick(event) {
     const cardID = event.target.dataset.id;
-    console.log(event);
-    console.log(this.taskCards);
     if (!this.taskCards.tasks[cardID]) return;
 
     Object.entries(this.taskCards.tasks[cardID]).forEach(([key, value]) => {
@@ -59,7 +55,7 @@ class EditButton extends Button {
     this.modal.show(() => {
       const { title, description, date, priority } = this.getFormTask();
       this.taskCards.edit(cardID, title, description, date, priority);
-      this.storeInLocal();
+      this.storeInLocal(this.taskCards);
     });
   }
 }

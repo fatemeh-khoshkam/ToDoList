@@ -244,6 +244,7 @@ const displayTask = (title, description, date, priority, dataID) => {
   </div>
 </div>`;
 };
+
 // Function to store tasks in local storage
 const storeTasksInLocalStorage = (tasks) => {
   localStorage.setItem("tasks", JSON.stringify(tasks));

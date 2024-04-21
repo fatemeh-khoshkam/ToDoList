@@ -2,19 +2,12 @@ class TaskListManager {
   constructor(render) {
     // Fetch tasks from the localstorage and if there is none
     // then, fill the tasks with empty array.
-
     const storedTasks = localStorage.getItem("tasks");
     if (storedTasks !== "undefined" && storedTasks !== null) {
-      try {
-        this.tasks = JSON.parse(storedTasks).tasks;
-      } catch (e) {
-        console.error("Error parsing tasks from localStorage:", e);
-        this.tasks = [];
-      }
+      this.tasks = JSON.parse(localStorage.getItem("tasks")).tasks;
     } else {
       this.tasks = [];
     }
-
     this.render = render;
     this.render(this);
   }
