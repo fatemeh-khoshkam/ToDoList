@@ -247,6 +247,7 @@ const displayTask = (title, description, date, priority, dataID) => {
 
 // Function to store tasks in local storage
 const storeTasksInLocalStorage = (tasks) => {
+  console.log(tasks);
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
@@ -263,25 +264,20 @@ const renderTasks = (list) => {
       displayTask(title, description, date, priority, i)
     );
   });
-
+  //console.log(localStorage.getItem("tasks"));
   //chkTasksExisting(list.tasks);
 
-  const deleteButton = new DeleteButton(
-    ".deleteBtn",
-    alertModal,
-    list,
-    storeTasksInLocalStorage
-  );
+  const deleteButton = new DeleteButton(".deleteBtn", alertModal, list);
   const editButton = new EditButton(
     ".editBtn",
     formTaskModal,
     list,
-    storeTasksInLocalStorage,
     getFormTask
   );
 };
 
 let list = new TaskListManager(renderTasks);
+console.log(list);
 
 // Showing task form and closing side menu
 addNewTask.forEach((el) => {
@@ -294,8 +290,8 @@ addNewTask.forEach((el) => {
       try {
         const { title, description, date, priority } = getFormTask();
         list.add(title, description, date, priority);
-        chkTasksExisting(list);
-        storeTasksInLocalStorage(list);
+        //chkTasksExisting(list);
+        //storeTasksInLocalStorage(list);
         //renderTasks();
       } catch (field) {
         throw field;
@@ -372,7 +368,7 @@ allChks.forEach((input) => {
   input.addEventListener("click", (event) => {
     const chkID = event.target.dataset.id;
     list.toggleTask(chkID, input);
-    storeTasksInLocalStorage(list);
+    //storeTasksInLocalStorage(list);
   });
 });
 

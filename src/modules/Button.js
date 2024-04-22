@@ -18,26 +18,26 @@ class Button {
 }
 
 class DeleteButton extends Button {
-  constructor(action, modal, taskCards, storeInLocal) {
+  constructor(action, modal, taskCards) {
     super(action, modal);
     this.taskCards = taskCards;
-    this.storeInLocal = storeInLocal;
+    //this.storeInLocal = storeInLocal;
   }
 
   onClick(event) {
     this.modal.show(() => {
       const cardID = event.target.dataset.id;
       this.taskCards.remove(cardID);
-      this.storeInLocal(this.taskCards);
+      //this.storeInLocal(this.taskCards);
     });
   }
 }
 
 class EditButton extends Button {
-  constructor(action, modal, taskCards, storeInLocal, getFormTask) {
+  constructor(action, modal, taskCards, getFormTask) {
     super(action, modal);
     this.taskCards = taskCards;
-    this.storeInLocal = storeInLocal;
+    //this.storeInLocal = storeInLocal;
     this.getFormTask = getFormTask;
   }
 
@@ -55,7 +55,7 @@ class EditButton extends Button {
     this.modal.show(() => {
       const { title, description, date, priority } = this.getFormTask();
       this.taskCards.edit(cardID, title, description, date, priority);
-      this.storeInLocal(this.taskCards);
+      //this.storeInLocal(this.taskCards);
     });
   }
 }
